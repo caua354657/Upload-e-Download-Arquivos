@@ -93,7 +93,7 @@ if(!isset($_SESSION['nome']))
             <a href="upload.php" class="btn btn-success">Novo</a> 
             <br><br>';
 
-            if(isset($_GET['nome'])) // linha 84, name="nome"
+            if(isset($_GET['nome']))
                 $selecionado = $_GET['nome']; // guarda o valor da url da opção selecionada
             else 
                 $selecionado = '';
