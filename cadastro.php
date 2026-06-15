@@ -76,6 +76,9 @@
             <a href="usuario.php" class="btn btn-secondary w-50">Voltar</a>
             <button type="submit" class="btn btn-success w-50">Cadastrar</button>
         </div>
+        <div class="text-center mt-3">
+            <small>Já tem conta? <a href="login.php">Faça Login</a></small>
+        </div>
     </form>
 </div>
 

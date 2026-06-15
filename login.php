@@ -52,27 +52,35 @@ session_start();
             if($resultado = $conexao->query($sql))
             {
                 $linha = $resultado->fetch_assoc();
-                $hash = $linha['senha'];  // hash correto da senha no banco
-                        
-                if(password_verify($senha, $hash)) // pega o hash do banco e compara com o que o usuário digitou, funciona apenas com password_hash
+
+                if($linha)
                 {
-                    $id = $linha['id'];
-                    $nome = $linha['nome'];
-                    $admin = $linha['categoria'];
-                    $_SESSION['id'] = $id;
-                    $_SESSION['nome'] = $nome; // nome usuario
-                    $_SESSION['adm'] = $admin; // se for adm ou nao
-                    header("refresh: 2; url=index.php");
-                    echo '<div id="overlay">
-                            <div class="spinner-grow" style="color: green;" role="status"></div>
-                            <div class="spinner-grow" style="color: green;" role="status"></div>
-                            <div class="spinner-grow" style="color: green;" role="status"></div>
-                        </div>';
+                    $hash = $linha['senha'];
+
+                    if(password_verify($senha, $hash))
+                    {
+                        $id = $linha['id'];
+                        $nome = $linha['nome'];
+                        $admin = $linha['categoria'];
+                        $_SESSION['id'] = $id;
+                        $_SESSION['nome'] = $nome;
+                        $_SESSION['adm'] = $admin;
+                        header("refresh: 2; url=index.php");
+                        echo '<div id="overlay">
+                                <div class="spinner-grow" style="color: green;" role="status"></div>
+                                <div class="spinner-grow" style="color: green;" role="status"></div>
+                                <div class="spinner-grow" style="color: green;" role="status"></div>
+                            </div>';
+                    }
+                    else
+                        echo '<div class="text-center alert alert-danger">
+                                <strong>Senha Incorreta</strong>
+                            </div>';
                 }
                 else
                     echo '<div class="text-center alert alert-danger">
-                            <strong>Senha Incorreta</strong>
-                        </div>';  
+                            <strong>Usuário não encontrado</strong>
+                        </div>';
             }
             else
                 echo '<div class="text-center alert alert-danger">
@@ -83,6 +91,9 @@ session_start();
     }
 ?>
         <button type="submit" class="btn btn-success w-100">Login</button>
+        <div class="text-center mt-3">
+            <small>Não tem conta? <a href="cadastro.php">Cadastre-se</a></small>
+        </div>
     </form>
 </div>
     
